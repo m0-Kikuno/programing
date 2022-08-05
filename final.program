@@ -1,0 +1,98 @@
+//料理名から材料,URLを探索するプログラム
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+
+using namespace std;
+
+//自分の食べたい料理名をひらがなで記入
+string a = "しょうがやき";
+
+class Dish{
+    
+protected:
+    string name;
+    string food;
+    string url;
+public:
+    void setName(string newName);
+    void setFood(string newFood);
+    void setUrl(string newUrl);
+    void show();
+};
+
+void Dish::setName(string newName){
+    name = newName;
+}
+
+void Dish::setFood(string newFood){
+    food = newFood;
+}
+
+void Dish::setUrl(string newUrl){
+    url = newUrl;
+}
+
+void Dish::show(){
+    if(name==a)
+    cout <<"必要な食材:"<<food<<",レシピのリンク先:"<<url<<endl;
+        }
+
+
+void name_read(vector<Dish>){};
+void food_read(vector<Dish>){};
+void url_read(vector<Dish>){};
+
+
+int main(void){
+    vector<Dish> ryouri;
+    
+    ifstream infile("File1");
+    
+    string name, food, url;
+    while (infile>>name>>food>>url){
+        
+        ryouri.emplace_back();
+        ryouri[ryouri.size()-1].setName(name);
+        ryouri[ryouri.size()-1].setFood(food);
+        ryouri[ryouri.size()-1].setUrl(url);
+        
+    }
+    infile.close();
+   
+   for ( int i =0; i<ryouri.size(); i++ ) ryouri[i].show();
+
+
+}
+
+
+//乱数を用いた料理の提示のプログラム
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+
+
+using namespace std;
+
+int main(){
+    srand(time(NULL));
+    int a=rand()%5+1;
+    //%の後にファイルに登録している料理の数を記入し,乱数を得る
+    cout<<"得られた乱数:"<<a<<endl;
+    ifstream ifs("File2");
+    string str[100];
+    for (int i=0; i<100;i++){
+        
+        getline(ifs, str[i]);
+    }
+    
+    for (int i=0; i<100; i++){
+        if(str[i]==to_string(a)){
+            cout<<str[i+1]<<endl;
+        }
+    }
+    
+    return 0;
+}
